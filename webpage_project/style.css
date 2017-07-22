@@ -1,0 +1,63 @@
+/* This is a CSS comment. Notice that CSS comments are
+enclosed by different characters than HTML comments. */
+
+/* CSS allows you to give your page style (colors, shapes, fonts, etc.)
+You can apply CSS elements to entire HTML classes.*/
+
+.general_styling {
+	padding: 15px;
+	background-color: #e0dbdb;
+	font-size: 18px;
+}
+
+.top_heading {
+	background-color: teal;
+	color: grey;
+	text-align: -webkit-center;
+	border-color: silver;
+	padding-top: 15px; 
+	padding-bottom: 15px;
+}
+
+.about_me {
+	padding: 4px;
+	background-color: #eae3e3;
+}
+
+.favquotes {
+	background-color: #bf9999;
+	padding: 4px;
+}
+
+.haikus {
+	background-color: #a8c4c4;
+	padding: 10px;
+}
+
+table {
+	width: 100%;
+	text-align: -webkit-left;
+}
+
+th {
+	text-align: left;
+	text-align: -webkit-left;
+}
+
+
+blockquote {
+	font-size: 19px;
+}
+
+img {
+	padding: 10px;
+	max-width: 1250px;
+	text-align: -webkit-center;
+	border: 1px solid grey;
+	width: 100%;
+	
+}
+
+table, td, tr, th {
+	border: 5px solid pink;
+}
