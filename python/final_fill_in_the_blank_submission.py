@@ -14,7 +14,7 @@
 
 # when player guesses correctly, the correct response filled in is displayed /done
 
-# when player guesses incorrectly, they are prompted to try again
+# when player guesses incorrectly, they are prompted to try again / done
 
 # use functions to automate tasks /done
 
@@ -26,9 +26,9 @@
 
 # use loops /done
 
-# each function includes a comment that explains intended behaviour and inputs and outputs
+# each function includes a comment that explains intended behaviour and inputs and outputs /done
 
-# extra credit: Let the user decide how many wrong guesses they can make before they lose
+# TODO: extra credit: Let the user decide how many wrong guesses they can make before they lose
 
 
 q_1_1 = """[1]______ lists the contents of a directory. 
@@ -107,9 +107,15 @@ def try_again(yes_or_no):
 # outputs: game over if both inputs don't match, returns True if inputs match
 def answer_checker(user_answers, answer_list):
 	if user_answers == answer_list: 
+		print "\n", "* " * 4, "C O N G R A T U L A T I O N S", " *" * 4
 		return True
 	else: 
-		game_over()
+		try_level_again = raw_input("\nYour answers weren't correct. \nWould you like to retry this level? Enter: 'yes' or 'no': " )
+		if try_level_again == "yes" or try_level_again == "Yes" or try_level_again == "y":
+			print " " # inserting a blank line for clarity
+			level_functionality(q_and_a, blanks_list, int(input_difficulty)-1)
+		else: 
+			game_over()
 
 # intended behaviour: takes in question, list of pre-defined blanks, and a number corresponding to a level (minus 1)
 # inputs: three inputs as listed above
@@ -130,69 +136,14 @@ def level_functionality(question, blanks_list, levelx):
 			replaced.append(element)
 	replaced = " ".join(replaced)
 	answer_checker(q_and_a[levelx][1], list_of_user_answers)
-	print replaced
-
-
-# def level_1(question, blanks_list):
-# 	print q_and_a[0][0]
-# 	replaced = []
-# 	list_of_user_answers = []
-# 	question = q_and_a[0][0].split()
-# 	for element in question: 
-# 		replacement = blanks_in_question(element, blanks_list)
-# 		if replacement != None: 
-# 			user_input = raw_input("Fill in the answer for: " + replacement + " ")
-# 			list_of_user_answers.append(user_input)
-# 			element = element.replace(replacement, user_input)
-# 			replaced.append(element)
-# 		else: 
-# 			replaced.append(element)
-# 	replaced = " ".join(replaced)
-# 	answer_checker(q_and_a[0][1], list_of_user_answers)
-# 	print replaced
-
-# def level_2(question, blanks_list):
-# 	print q_and_a[1][0]
-# 	replaced = []
-# 	list_of_user_answers = []
-# 	question = q_and_a[1][0].split()
-# 	for element in question: 
-# 		replacement = blanks_in_question(element, blanks_list)
-# 		if replacement != None: 
-# 			user_input = raw_input("Fill in the answer for: " + replacement + " ")
-# 			list_of_user_answers.append(user_input)
-# 			element = element.replace(replacement, user_input)
-# 			replaced.append(element)
-# 		else: 
-# 			replaced.append(element)
-# 	replaced = " ".join(replaced)
-# 	answer_checker(q_and_a[1][1], list_of_user_answers)
-# 	print replaced
-
-# def level_3(question, blanks_list):
-# 	print q_and_a[2][0]
-# 	replaced = []
-# 	list_of_user_answers = []
-# 	question = q_and_a[2][0].split()
-# 	for element in question: 
-# 		replacement = blanks_in_question(element, blanks_list)
-# 		if replacement != None: 
-# 			user_input = raw_input("Fill in the answer for: " + replacement + " ")
-# 			list_of_user_answers.append(user_input)
-# 			element = element.replace(replacement, user_input)
-# 			replaced.append(element)
-# 		else: 
-# 			replaced.append(element)
-# 	replaced = " ".join(replaced)
-# 	answer_checker(q_and_a[2][1], list_of_user_answers)
-# 	print replaced
+	print "ANSWER: " + replaced
 
 # intended behaviour: starts the game and asks user for what level they want to start at
 # inputs: user's choice in level of difficulty
 # outputs: takes user to corresponding level of difficulty in the game. 
 def start_game(): 
-	print_fancy_heading("WELCOME TO THE GAME")
-	print """The objective of the game is to fill in the blanks correctly. \nThis game has three levels of difficulty. Please enter: \n"1" for Easy \n"2" for Medium \n"3" for Hard"""
+	print """The objective of the game is to fill in the blanks correctly. \nWhen entering your answers, please use all lowercase responses. \nThis game has three levels of difficulty. Please enter: \n"1" for Easy \n"2" for Medium \n"3" for Hard"""
+	global input_difficulty
 	input_difficulty = raw_input("Choose level of difficulty: " )
 	if input_difficulty == str(1): 
 		print_fancy_heading("Level 1: Easy")
@@ -207,5 +158,8 @@ def start_game():
 		yes_or_no = raw_input("I'm sorry, but you didn't follow the instructions :'( \nWould you like to start again? Enter: 'yes' or 'no': " )
 		try_again(yes_or_no)
 
+# prints fancy heading: welcome to the game
+print_fancy_heading("WELCOME TO THE GAME")
+# starts gameplay: 
 start_game()
 
