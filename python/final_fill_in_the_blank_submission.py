@@ -96,6 +96,11 @@ def start_again(yes_or_no):
 		exit()
 
 def try_level_again():
+	"""
+	intended behaviour: asks user if he wants to try level again if the user provides a wrong answer. 
+	input: yes or no, provided by the user. 
+	output: replay level or gameover depending on user choice. 
+	"""
 	try_level_again = raw_input("\nYour last answer wasn't correct. \nWould you like to retry this level? Enter: 'yes' or 'no': " ).lower()
 	if try_level_again == "yes" or try_level_again == "y":
 		print " " # inserting a blank line for clarity
@@ -104,36 +109,29 @@ def try_level_again():
 		game_over()
 
 
-def answer_checker(user_answers, answer_list):
-	"""
-	intended behaviour: checks if the answers that the user has provided match the correct answer
-	inputs: user's answer and a list of correct answers
-	outputs: game over if both inputs don't match, returns True if inputs match
-	"""
-	end_multiplier = 4
-	if user_answers == answer_list: 
-		print "\n", "* " * end_multiplier, "C O N G R A T U L A T I O N S - YOU WIN", " *" * end_multiplier
-		return True
-	else: 
-		try_level_again = raw_input("\nYour answers weren't correct. \nWould you like to retry this level? Enter: 'yes' or 'no': " ).lower()
-		if try_level_again == "yes" or try_level_again == "y":
-			level_functionality(_questions_, blanks_list, input_difficulty)
-		else: 
-			game_over()
+# def answer_checker(user_answers, answer_list):
+# 	"""
+# 	intended behaviour: checks if the answers that the user has provided match the correct answer
+# 	inputs: user's answer and a list of correct answers
+# 	outputs: game over if both inputs don't match, returns True if inputs match
+# 	"""
+# 	end_multiplier = 4
+# 	if user_answers == answer_list: 
+# 		print "\n", "* " * end_multiplier, "C O N G R A T U L A T I O N S - YOU WIN", " *" * end_multiplier
+# 		return True
+# 	else: 
+# 		try_level_again = raw_input("\nYour answers weren't correct. \nWould you like to retry this level? Enter: 'yes' or 'no': " ).lower()
+# 		if try_level_again == "yes" or try_level_again == "y":
+# 			level_functionality(_questions_, blanks_list, input_difficulty)
+# 		else: 
+# 			game_over()
 
-
-def level_functionality(question, blanks_list, level_type):
+def game_play_logic(question, replaced, list_of_user_answers, index_counter, answer_counter, level_type):
 	"""
-	intended behaviour: takes in question, list of pre-defined blanks, and a number corresponding to a level (minus 1)
-	inputs: three inputs as listed above
-	outputs: meat of the fill in the blanks game / correct response if user enters correct response / game over otherwise. 
+	intended behaviour: game play logic. looks at user response and spits out appropriate output.
+	inputs: question, replaced, list_of_user_answers, index_counter, answer_counter, level_type
+	outputs: outputs correctly filled in blank if user answer is correct, otherwise asks user if they'd like to try again. 
 	"""
-	print _questions_[level_type]['prompt']
-	replaced = []
-	list_of_user_answers = []
-	question = _questions_[level_type]['prompt'].split()
-	index_counter = 0 
-	answer_counter = 0
 	for element in question: 
 		replacement = blanks_in_question(element, blanks_list)
 		if replacement != None: 
@@ -150,6 +148,21 @@ def level_functionality(question, blanks_list, level_type):
 		else: 
 			replaced.append(element)
 		index_counter += 1 
+
+
+def level_functionality(question, blanks_list, level_type):
+	"""
+	intended behaviour: takes in question, list of pre-defined blanks, and a number corresponding to a level (minus 1)
+	inputs: three inputs as listed above
+	outputs: meat of the fill in the blanks game / correct response if user enters correct response / game over otherwise. 
+	"""
+	print _questions_[level_type]['prompt']
+	replaced = []
+	list_of_user_answers = []
+	question = _questions_[level_type]['prompt'].split()
+	index_counter = 0 
+	answer_counter = 0
+	game_play_logic(question, replaced, list_of_user_answers, index_counter, answer_counter, level_type)
 	replaced = " ".join(replaced)
 	# return answer_checker(_questions_[level_type]['answer'], list_of_user_answers)
 
