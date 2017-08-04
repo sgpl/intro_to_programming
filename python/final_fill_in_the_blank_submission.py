@@ -63,9 +63,9 @@ def blanks_in_question(blank, list_of_blanks):
 	inputs: takes in a word, and a list of blanks
 	outputs: none if the condition is not met. otherwise it returns a blank (from list of blank) corresponding to word
 	"""
-    for xx in list_of_blanks:
-        if xx in blank:
-            return xx
+    for current_element in list_of_blanks:
+        if current_element in blank:
+            return current_element
     return None
 
 
@@ -92,11 +92,13 @@ def game_over():
 	inputs: none
 	outputs: game over with some fancy asterix around it
 	"""
-	print "* " * 20
-	print "* " * 20
-	print " "* 9, "G A M E   O V E R"
-	print "* " * 20
-	print "* " * 20
+	asterix_multiplier = 20
+	space_multiplier = 9
+	print "* " * asterix_multiplier
+	print "* " * asterix_multiplier
+	print " "* space_multiplier, "G A M E   O V E R"
+	print "* " * asterix_multiplier
+	print "* " * asterix_multiplier
 	exit()
 
 
@@ -121,8 +123,9 @@ def answer_checker(user_answers, answer_list):
 	inputs: user's answer and a list of correct answers
 	outputs: game over if both inputs don't match, returns True if inputs match
 	"""
+	end_multiplier = 4
 	if user_answers == answer_list: 
-		print "\n", "* " * 4, "C O N G R A T U L A T I O N S", " *" * 4
+		print "\n", "* " * end_multiplier, "C O N G R A T U L A T I O N S", " *" * end_multiplier
 		return True
 	else: 
 		try_level_again = raw_input("\nYour answers weren't correct. \nWould you like to retry this level? Enter: 'yes' or 'no': " )
