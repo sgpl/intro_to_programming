@@ -31,28 +31,28 @@
 # TODO: extra credit: Let the user decide how many wrong guesses they can make before they lose
 
 
-q_1_1 = """[1]______ lists the contents of a directory. 
+question_easy = """[1]______ lists the contents of a directory. 
 [2]______ is the command that can be used to change your working 
 directory. [3]______ prints your current working directory and 
 [4]______ is the command used to create a new directory!"""
 # ls, cd, pwd, mkdir
-q_1_2 = """[1]______ is the command used to create a new 
+question_medium = """[1]______ is the command used to create a new 
 directory, [2]______ is a command used to permanently remove a file. 
 [3]______ permanently removes an empty directory and [4]______ is 
 a command that creates a new file with a specified extension or file type."""
 # mkdir, rm, rmdir, touch
-q_1_3 = """rm -ri permanently removes a [1]______ and it's 
+question_hard = """rm -ri permanently removes a [1]______ and it's 
 contents with confirmation. [2]______ is a command used to make a 
 new directory. [3]______ permanently removes an empty directory and 
 [4]______ permanently removes a file."""
 # directory, mkdir, rmdir, rm
-q_1_4 = """[1]______ is a general-purpose interpreted, interactive, 
+question_superhard = """[1]______ is a general-purpose interpreted, interactive, 
 object-oriented, and high-level [2]______ language. A [3]______ is 
 created with the def keyword. Using [4]______(some_object) returns 
 the number of top-level items contained in the object being queried."""
 # python, programming, function, len
 
-q_and_a = [[q_1_1, ["ls", "cd", "pwd", "mkdir"]], [q_1_2, ["mkdir", "rm", "rmdir", "touch"]], [q_1_3, ["directory", "mkdir", "rmdir", "rm"]], [q_1_4, ["python", "programming", "function", "len"]]]
+list_of_questions_and_answers = [[question_easy, ["ls", "cd", "pwd", "mkdir"]], [question_medium, ["mkdir", "rm", "rmdir", "touch"]], [question_hard, ["directory", "mkdir", "rmdir", "rm"]], [question_superhard, ["python", "programming", "function", "len"]]]
 
 blanks_list  = ["[1]______", "[2]______", "[3]______", "[4]______"]
 
@@ -113,7 +113,7 @@ def answer_checker(user_answers, answer_list):
 		try_level_again = raw_input("\nYour answers weren't correct. \nWould you like to retry this level? Enter: 'yes' or 'no': " )
 		if try_level_again == "yes" or try_level_again == "Yes" or try_level_again == "y":
 			print " " # inserting a blank line for clarity
-			level_functionality(q_and_a, blanks_list, int(input_difficulty)-1)
+			level_functionality(list_of_questions_and_answers, blanks_list, int(input_difficulty)-1)
 		else: 
 			game_over()
 
@@ -121,10 +121,10 @@ def answer_checker(user_answers, answer_list):
 # inputs: three inputs as listed above
 # outputs: meat of the fill in the blanks game / correct response if user enters correct response / game over otherwise. 
 def level_functionality(question, blanks_list, levelx):
-	print q_and_a[levelx][0]
+	print list_of_questions_and_answers[levelx][0]
 	replaced = []
 	list_of_user_answers = []
-	question = q_and_a[levelx][0].split()
+	question = list_of_questions_and_answers[levelx][0].split()
 	for element in question: 
 		replacement = blanks_in_question(element, blanks_list)
 		if replacement != None: 
@@ -135,7 +135,7 @@ def level_functionality(question, blanks_list, levelx):
 		else: 
 			replaced.append(element)
 	replaced = " ".join(replaced)
-	answer_checker(q_and_a[levelx][1], list_of_user_answers)
+	answer_checker(list_of_questions_and_answers[levelx][1], list_of_user_answers)
 	print "ANSWER: " + replaced
 
 # intended behaviour: starts the game and asks user for what level they want to start at
@@ -147,13 +147,13 @@ def start_game():
 	input_difficulty = raw_input("Choose level of difficulty: " )
 	if input_difficulty == str(1): 
 		print_fancy_heading("Level 1: Easy")
-		level_functionality(q_and_a, blanks_list, 0)
+		level_functionality(list_of_questions_and_answers, blanks_list, 0)
 	elif input_difficulty == str(2): 
 		print_fancy_heading("Level 2: Medium")
-		level_functionality(q_and_a, blanks_list, 1)
+		level_functionality(list_of_questions_and_answers, blanks_list, 1)
 	elif input_difficulty == str(3): 
 		print_fancy_heading("Level 3: Hard")
-		level_functionality(q_and_a, blanks_list, 2)
+		level_functionality(list_of_questions_and_answers, blanks_list, 2)
 	else: 
 		yes_or_no = raw_input("I'm sorry, but you didn't follow the instructions :'( \nWould you like to start again? Enter: 'yes' or 'no': " )
 		try_again(yes_or_no)
