@@ -135,7 +135,7 @@ def game_play_logic(question, replaced, list_of_user_answers, index_counter, ans
 	for element in question: 
 		replacement = blanks_in_question(element, blanks_list)
 		if replacement != None: 
-			user_input = raw_input("What should go in blank " + replacement + " ")
+			user_input = raw_input("\nWhat should go in blank " + replacement + " ")
 			list_of_user_answers.append(user_input)
 			element = element.replace(replacement, user_input)
 			replaced.append(element)
@@ -148,6 +148,7 @@ def game_play_logic(question, replaced, list_of_user_answers, index_counter, ans
 		else: 
 			replaced.append(element)
 		index_counter += 1 
+	return game_over()
 
 
 def level_functionality(question, blanks_list, level_type):
@@ -164,6 +165,7 @@ def level_functionality(question, blanks_list, level_type):
 	answer_counter = 0
 	game_play_logic(question, replaced, list_of_user_answers, index_counter, answer_counter, level_type)
 	replaced = " ".join(replaced)
+	return game_over()
 	# return answer_checker(_questions_[level_type]['answer'], list_of_user_answers)
 
 
