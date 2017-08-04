@@ -26,7 +26,7 @@ _questions_ = {
 		'answer': ['ls', 'cd', 'pwd', 'mkdir']
 	},
 	'medium': { 
-		'prompt' : '[[1]______ is the command used to create a new directory, [2]______ is a command used to permanently remove a file. [3]______ permanently removes an empty directory and [4]______ is a command that creates a new file with a specified extension or file type.',
+		'prompt' : '[1]______ is the command used to create a new directory, [2]______ is a command used to permanently remove a file. [3]______ permanently removes an empty directory and [4]______ is a command that creates a new file with a specified extension or file type.',
 		'answer': ['mkdir', 'rm', 'rmdir', 'touch']
 	},
 	'hard': {
@@ -82,9 +82,9 @@ def game_over():
 	exit()
 
 
-def try_again(yes_or_no):
+def start_again(yes_or_no):
 	"""
-	intended behaviour: asks user if they want to try again and outputs a corresponding response
+	intended behaviour: asks user if they want to start again and outputs a corresponding response
 	inputs: entered by user
 	outputs: starts game again or exits depending on the user's choice
 	"""
@@ -95,6 +95,14 @@ def try_again(yes_or_no):
 		game_over()
 		exit()
 
+def try_level_again():
+	try_level_again = raw_input("\nYour last answer wasn't correct. \nWould you like to retry this level? Enter: 'yes' or 'no': " ).lower()
+	if try_level_again == "yes" or try_level_again == "y":
+		print " " # inserting a blank line for clarity
+		level_functionality(_questions_, blanks_list, input_difficulty)### have to change stuff here due to input difficulty
+	else: 
+		game_over()
+
 
 def answer_checker(user_answers, answer_list):
 	"""
@@ -104,13 +112,12 @@ def answer_checker(user_answers, answer_list):
 	"""
 	end_multiplier = 4
 	if user_answers == answer_list: 
-		print "\n", "* " * end_multiplier, "C O N G R A T U L A T I O N S", " *" * end_multiplier
+		print "\n", "* " * end_multiplier, "C O N G R A T U L A T I O N S - YOU WIN", " *" * end_multiplier
 		return True
 	else: 
 		try_level_again = raw_input("\nYour answers weren't correct. \nWould you like to retry this level? Enter: 'yes' or 'no': " ).lower()
 		if try_level_again == "yes" or try_level_again == "y":
-			print " " # inserting a blank line for clarity
-			level_functionality(_questions_, blanks_list, input_difficulty)### have to change stuff here due to input difficulty
+			level_functionality(_questions_, blanks_list, input_difficulty)
 		else: 
 			game_over()
 
@@ -121,13 +128,12 @@ def level_functionality(question, blanks_list, level_type):
 	inputs: three inputs as listed above
 	outputs: meat of the fill in the blanks game / correct response if user enters correct response / game over otherwise. 
 	"""
-	# print list_of_questions_and_answers[level_type][0]
 	print _questions_[level_type]['prompt']
 	replaced = []
 	list_of_user_answers = []
-	# question = list_of_questions_and_answers[level_type][0].split()
 	question = _questions_[level_type]['prompt'].split()
 	index_counter = 0 
+	answer_counter = 0
 	for element in question: 
 		replacement = blanks_in_question(element, blanks_list)
 		if replacement != None: 
@@ -135,14 +141,18 @@ def level_functionality(question, blanks_list, level_type):
 			list_of_user_answers.append(user_input)
 			element = element.replace(replacement, user_input)
 			replaced.append(element)
+			if user_input == _questions_[level_type]['answer'][answer_counter]:
+				print "\n" + " ".join(replaced) + " " + " ".join(question[index_counter+1:]) + "\n"
+				answer_counter += 1 
+			else: 
+				print "\nWRONG ANSWER!!!!!!!!!!!", try_level_again()
+				break
 		else: 
 			replaced.append(element)
-		# print " ".join(replaced) + " " + " ".join(question[index_counter+1:])
 		index_counter += 1 
 	replaced = " ".join(replaced)
-	# answer_checker(list_of_questions_and_answers[level_type][1], list_of_user_answers)
-	answer_checker(_questions_[level_type]['answer'], list_of_user_answers)
-	print "ANSWER: " + replaced
+	# return answer_checker(_questions_[level_type]['answer'], list_of_user_answers)
+
 
 def start_game(): 
 	"""
@@ -164,7 +174,7 @@ def start_game():
 		level_functionality(_questions_, blanks_list, input_difficulty)
 	else: 
 		yes_or_no = raw_input("I'm sorry, but you didn't follow the instructions :'( \nWould you like to start again? Enter: 'yes' or 'no': " ).lower()
-		try_again(yes_or_no)
+		start_again(yes_or_no)
 
 # prints fancy heading: welcome to the game
 print_fancy_heading("WELCOME TO THE GAME")
