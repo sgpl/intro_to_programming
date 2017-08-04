@@ -56,20 +56,26 @@ list_of_questions_and_answers = [[question_easy, ["ls", "cd", "pwd", "mkdir"]], 
 
 blanks_list  = ["[1]______", "[2]______", "[3]______", "[4]______"]
 
-# intended behaviour: outputs a blank (used when asking user for input) 
-# inputs: takes in a word, and a list of blanks
-# outputs: none if the condition is not met. otherwise it returns a blank (from list of blank) corresponding to word
+
 def blanks_in_question(blank, list_of_blanks):
+	"""
+	intended behaviour: outputs a blank (used when asking user for input) 
+	inputs: takes in a word, and a list of blanks
+	outputs: none if the condition is not met. otherwise it returns a blank (from list of blank) corresponding to word
+	"""
     for xx in list_of_blanks:
         if xx in blank:
             return xx
     return None
 
 
-# intended behaviour: takes in some text and displays it in a fancy format
-# inputs: text
-# outputs: text with some fancy borders
+
 def print_fancy_heading(heading_text):
+	"""
+	intended behaviour: takes in some text and displays it in a fancy format
+	inputs: text
+	outputs: text with some fancy borders
+	"""
 	heading_text = "| " + heading_text + " |"
 	border = len(heading_text)
 	print " " 
@@ -79,10 +85,13 @@ def print_fancy_heading(heading_text):
 	print " "
 
 
-# intended behaviour: outputs game over when a game is over
-# inputs: none
-# outputs: game over with some fancy asterix around it
+
 def game_over():
+	"""
+	intended behaviour: outputs game over when a game is over
+	inputs: none
+	outputs: game over with some fancy asterix around it
+	"""
 	print "* " * 20
 	print "* " * 20
 	print " "* 9, "G A M E   O V E R"
@@ -91,10 +100,13 @@ def game_over():
 	exit()
 
 
-# intended behaviour: asks user if they want to try again and outputs a corresponding response
-# inputs: entered by user
-# outputs: starts game again or exits depending on the user's choice
+
 def try_again(yes_or_no):
+	"""
+	intended behaviour: asks user if they want to try again and outputs a corresponding response
+	inputs: entered by user
+	outputs: starts game again or exits depending on the user's choice
+	"""
 	if yes_or_no == "yes" or yes_or_no == "Yes" or yes_or_no == "y":
 		# level_1(input_difficulty)
 		start_game()
@@ -102,10 +114,13 @@ def try_again(yes_or_no):
 		game_over()
 		exit()
 
-# intended behaviour: checks if the answers that the user has provided match the correct answer
-# inputs: user's answer and a list of correct answers
-# outputs: game over if both inputs don't match, returns True if inputs match
+
 def answer_checker(user_answers, answer_list):
+	"""
+	intended behaviour: checks if the answers that the user has provided match the correct answer
+	inputs: user's answer and a list of correct answers
+	outputs: game over if both inputs don't match, returns True if inputs match
+	"""
 	if user_answers == answer_list: 
 		print "\n", "* " * 4, "C O N G R A T U L A T I O N S", " *" * 4
 		return True
@@ -117,10 +132,13 @@ def answer_checker(user_answers, answer_list):
 		else: 
 			game_over()
 
-# intended behaviour: takes in question, list of pre-defined blanks, and a number corresponding to a level (minus 1)
-# inputs: three inputs as listed above
-# outputs: meat of the fill in the blanks game / correct response if user enters correct response / game over otherwise. 
+
 def level_functionality(question, blanks_list, levelx):
+	"""
+	intended behaviour: takes in question, list of pre-defined blanks, and a number corresponding to a level (minus 1)
+	inputs: three inputs as listed above
+	outputs: meat of the fill in the blanks game / correct response if user enters correct response / game over otherwise. 
+	"""
 	print list_of_questions_and_answers[levelx][0]
 	replaced = []
 	list_of_user_answers = []
@@ -138,10 +156,12 @@ def level_functionality(question, blanks_list, levelx):
 	answer_checker(list_of_questions_and_answers[levelx][1], list_of_user_answers)
 	print "ANSWER: " + replaced
 
-# intended behaviour: starts the game and asks user for what level they want to start at
-# inputs: user's choice in level of difficulty
-# outputs: takes user to corresponding level of difficulty in the game. 
 def start_game(): 
+	"""
+	intended behaviour: starts the game and asks user for what level they want to start at
+	inputs: user's choice in level of difficulty
+	outputs: takes user to corresponding level of difficulty in the game. 
+	"""
 	print """The objective of the game is to fill in the blanks correctly. \nWhen entering your answers, please use all lowercase responses. \nThis game has three levels of difficulty. Please enter: \n"1" for Easy \n"2" for Medium \n"3" for Hard"""
 	global input_difficulty
 	input_difficulty = raw_input("Choose level of difficulty: " )
